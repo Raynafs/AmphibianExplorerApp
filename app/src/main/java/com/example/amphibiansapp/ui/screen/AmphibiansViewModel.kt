@@ -1,4 +1,4 @@
-package com.example.amphibiansapp.ui
+package com.example.amphibiansapp.ui.screen
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.amphibiansapp.AmphibiansApplication
+import retrofit2.HttpException
 import java.io.IOException
 
 sealed interface AmphibiansUiState {
@@ -28,15 +29,18 @@ class AmphibiansViewModel (private val amphibiansRepository: AmphibiansRepositor
         getPhotos()
     }
 
-    fun getPhotos(){
+    private fun getPhotos(){
         viewModelScope.launch{
+
             amphiUiState = try {
-                AmphibiansUiState.Success (amphibiansRepository.getAnimalPhotos())
+                AmphibiansUiState.Success(amphibiansRepository.getAnimalPhotos())
             }
                 catch (e: IOException) {
                     AmphibiansUiState.Error
                 }
-
+            catch (e: HttpException) {
+                AmphibiansUiState.Error
+            }
         }
 
     }

@@ -5,6 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class AmphibiansPhotos(
+    val id: String,
     val name : String,
     val type : String,
     val description : String,

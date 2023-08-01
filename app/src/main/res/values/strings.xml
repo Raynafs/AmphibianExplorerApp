@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Amphibians app</string>
+    <string name="amphibian_photo">Amphibians photo</string>
 </resources>
